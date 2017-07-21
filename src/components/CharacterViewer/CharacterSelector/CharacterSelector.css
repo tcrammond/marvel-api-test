@@ -1,0 +1,23 @@
+.CharacterSelector__container {
+  height: 300px;
+  width: 150px;
+  overflow-y: scroll;
+
+  border: 1px solid black;
+}
+
+.CharacterSelector__item, .CharacterSelector__item--selected {
+  width: 100px;
+  min-height: 100px;
+
+  margin: 10px auto;
+  background-size: cover;
+}
+
+.CharacterSelector__item:hover {
+  transform: scale(1.1);
+}
+
+.CharacterSelector__item--selected {
+  outline: 5px solid black;
+}

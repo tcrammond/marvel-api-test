@@ -24,6 +24,9 @@ export class CharacterViewer extends PureComponent {
 
   constructor (props) {
     super(props)
+    this.state = {
+      selectedCharacterId: null
+    }
   }
 
   componentWillMount () {
@@ -39,20 +42,33 @@ export class CharacterViewer extends PureComponent {
     // In lieu of setting up any async effect middleware, we'll handle this directly here.
     this.props.fetchCharactersByComicId(props.comicId)
     api.fetchCharactersByComicId(props.comicId)
-      .then((response) => this.props.fetchCharactersSuccess(response.data.data.results))
+      .then((response) => {
+        this.props.fetchCharactersSuccess(response.data.data.results)
+        this.setState({selectedCharacterId: +Object.keys(this.props.characters)[0]})
+      })
       .catch((e) => console.error(e) && this.props.fetchCharactersError())
   }
 
+  selectCharacter = (id) => {
+    this.setState({selectedCharacterId: id})
+  }
+
   render () {
+    const { characters } = this.props
+    const { selectedCharacterId } = this.state
+    const selectedCharacter = characters[selectedCharacterId]
+
     return (
-      <div>
-        Characters in this comic:
+      <div className='CharacterViewer__container'>
+        <h3 className='CharacterViewer__header'>Characters</h3>
+
         {this.props.isLoading
           ? <div>Loading...</div>
-          : <ul>
-              {_.map(this.props.characters, (character) => <li>{character.name}</li>)}
-            </ul>}
-
+          : <div>
+              <CharacterSelector characters={characters} selectedCharacterId={selectedCharacterId} onSelectCharacter={this.selectCharacter} />
+              <CharacterProfile character={selectedCharacter}/>
+            </div>
+        }
       </div>
     )
   }
@@ -64,7 +80,8 @@ function getCharactersByComicIdSelector (state, comicId) {
   const comic = state.data.comics.entries[comicId] || {}
   const characterIds = _.map(comic.characters.items, (character) => +character.resourceURI.match(/characters\/(\d+)/)[1])
 
-  return _.filter(state.data.characters.entries, (character) => _.includes(characterIds, character.id))
+  const characters = _.filter(state.data.characters.entries, (character) => _.includes(characterIds, character.id))
+  return _.keyBy(characters, 'id')
 }
 
 function mapStateToProps (state, ownProps) {

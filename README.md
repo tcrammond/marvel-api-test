@@ -4,7 +4,7 @@
 
 This demo app demonstrates a `CharacterSelector` component, that fetches (as required) and displays the characters that are associated with a given comic.
 
-It is set up in the context of a larger page, running in a React/Redux app. For the purposes of demonstration this page (`ComicPage`) only has a dropdown to change between comics. In the interset of time some valid comics are hard-coded in the `comics.json` file, but the characters for the `CharacterSelector` component are fetched from the Marvel API.
+It is set up in the context of a larger page, running in a React/Redux app. For the purposes of demonstration this page (`ComicPage`) only has a dropdown to change between comics. In the interest of time, some valid comics are hard-coded in the `comics.json` file, but the characters for the `CharacterSelector` component are indeed fetched from the Marvel API.
 
 ## Set up
 
@@ -17,8 +17,10 @@ Run `yarn` or `npm install` to install dependencies.
 Add an `.env.local` file in the **root** of the project, as follows:
 
 ```
-REACT_APP_MARVEL_API_KEY=your_api_key_here
+REACT_APP_MARVEL_API_KEY=your_public_api_key_here
 ```
+
+*(make sure this is the public key, not the private key)*
 
 ## Running the app
 

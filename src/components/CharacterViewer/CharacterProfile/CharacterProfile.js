@@ -16,8 +16,8 @@ const Links = ({ character }) => {
   const links = _.keyBy(character.urls, 'type')
   return (
     <div className='CharacterProfile__links'>
-      <a href={links.detail.url} target='_blank'>Official page</a>
-      <a href={links.wiki.url} target='_blank'>Wiki entry</a>
+      {links.detail && <a href={links.detail.url} target='_blank'>Official page</a>}
+      {links.wiki && <a href={links.wiki.url} target='_blank'>Wiki entry</a>}
     </div>
   )
 }

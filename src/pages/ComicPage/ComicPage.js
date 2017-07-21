@@ -9,14 +9,18 @@ import CharacterViewer from './../../components/CharacterViewer/CharacterViewer.
 // Switch between hard-coded comic IDs for the demo.
 function ComicSwitcher ({comics, onSelectComic, selectedComicId}) {
   const onChange = (event) => onSelectComic(+event.target.value)
+  const comicsWithCharacters = _.filter(comics, (comic) => comic.characters.available > 0)
 
   return (
     <select value={selectedComicId} onChange={onChange}>
-      {_.map(comics, (comic) => <option key={comic.id} value={comic.id}>{comic.title}</option>)}
+      {_.map(comicsWithCharacters, (comic) => <option key={comic.id} value={comic.id}>{comic.title}</option>)}
     </select>
   )
 }
 
+/**
+ * Page / main container for this demo.
+ */
 class ComicPage extends PureComponent {
   static propTypes = {
     comics: PropTypes.object.isRequired,

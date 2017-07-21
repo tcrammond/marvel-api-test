@@ -12,7 +12,7 @@ function ComicSwitcher ({comics, onSelectComic, selectedComicId}) {
 
   return (
     <select value={selectedComicId} onChange={onChange}>
-      {_.map(comics, (comic) => <option value={comic.id}>{comic.title}</option>)}
+      {_.map(comics, (comic) => <option key={comic.id} value={comic.id}>{comic.title}</option>)}
     </select>
   )
 }
@@ -24,10 +24,12 @@ class ComicPage extends PureComponent {
   }
 
   render () {
+    const { comics, changeComic, selectedComic } = this.props
+
     return (
       <div>
-        <ComicSwitcher comics={this.props.comics} selectedComic={this.props.selectedComic.id} onSelectComic={this.props.changeComic} />
-        <CharacterViewer />
+        <ComicSwitcher comics={comics} selectedComic={selectedComic.id} onSelectComic={changeComic} />
+        <CharacterViewer comicId={selectedComic.id} />
       </div>
     )
   }

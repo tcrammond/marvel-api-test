@@ -6,14 +6,14 @@ import _ from 'lodash'
 import './CharacterViewer.css'
 import CharacterSelector from './CharacterSelector/CharacterSelector.js'
 import CharacterProfile from './CharacterProfile/CharacterProfile.js'
-import { fetchCharactersByIds } from '../../redux/reducers/characters'
+import { fetchCharactersByComicId } from '../../redux/reducers/characters'
 
 /**
- * Displays a scrollable list of characters alongside the profile of a selected character.
+ * Displays a scrollable list of characters from a comic alongside the profile of a selected character.
  */
 export class CharacterViewer extends PureComponent {
   static propTypes = {
-    characterIds: PropTypes.arrayOf(PropTypes.number).isRequired
+    comicId: PropTypes.number.isRequired
   }
 
   constructor (props) {
@@ -21,16 +21,17 @@ export class CharacterViewer extends PureComponent {
     this.state = { fetching: false }
   }
 
-  componentWillReceiveProps (nextProps) {
-    if (this.props.characterIds !== nextProps.characterIds) {
-      // Check if any characters need fetching
-      if (nextProps.characterIds.length !== _.size(nextProps.characters)) {
-        const missingCharacterIds = _.difference(nextProps.characterIds, _.keys(nextProps.characters))
-        this.props.fetchCharactersByIds(missingCharacterIds)
+  componentWillMount () {
+    if (this.props.comicId) this.fetchCharacters(this.props)
+  }
 
-        this.setState({ fetching: true })
-      }
-    }
+  componentWillReceiveProps (nextProps) {
+    if (this.props.comicId !== nextProps.comicId) this.fetchCharacters(nextProps)
+  }
+
+  fetchCharacters (props) {
+    this.props.fetchCharactersByComicId(props.comicId)
+    this.setState({ fetching: true })
   }
 
   render () {
@@ -43,19 +44,22 @@ export class CharacterViewer extends PureComponent {
 
 }
 
-// Returns characters from store matching given IDs
-function getCharactersByIdSelector (state, ids) {
-  return _.filter(state.data.characters, (character) => _.includes(ids, character.id))
+// Returns characters from store matching comic IDs
+function getCharactersByComicIdSelector (state, comicId) {
+  const comic = state.data.comics.entries[comicId] || {}
+  const characterIds = _.map(comic.characters.items, (character) => character.resourceURI.match(/characters\/(\d+)/)[1])
+
+  return _.filter(state.data.characters, (character) => _.includes(characterIds, character.id))
 }
 
 function mapStateToProps (state, ownProps) {
   return {
-    characters: getCharactersByIdSelector(state, ownProps.characterIds)
+    characters: getCharactersByComicIdSelector(state, ownProps.comicId)
   }
 }
 
 const mapDispatchToProps = {
-  fetchCharactersByIds
+  fetchCharactersByComicId
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CharacterViewer)

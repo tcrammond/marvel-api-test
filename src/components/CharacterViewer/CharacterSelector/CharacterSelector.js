@@ -39,7 +39,7 @@ export default class CharacterSelector extends PureComponent {
 
 }
 
-function Character ({ character, isSelected, onClick }) {
+export function Character ({ character, isSelected, onClick }) {
   const className = isSelected ? 'CharacterSelector__item--selected' : 'CharacterSelector__item'
   return <div onClick={() => onClick(character.id)} className={className} style={{backgroundImage: `url(${character.thumbnail})`}} />
 }

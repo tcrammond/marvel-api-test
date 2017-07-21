@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import striptags from 'striptags'
 import _ from 'lodash'
@@ -31,7 +31,7 @@ export default function CharacterProfile ({ character }) {
   return (
     <div className='CharacterProfile__container'>
       <div className='CharacterProfile__photo'>
-        <img src={character.thumbnail} />
+        <img src={character.thumbnail} alt={character.name} />
       </div>
       <div className='CharacterProfile__details'>
         <h3>{character.name}</h3>

@@ -1,10 +1,10 @@
 const initialState = {
   comic: {
-    selectedComicId: null
+    selectedComicId: 61382
   }
 }
 
-const CHANGE_COMIC = 'comicPage/CHANGE_COMIC'
+const CHANGE_COMIC = 'comicView/CHANGE_COMIC'
 
 export const changeComic = (id) => ({type: 'comicView/CHANGE_COMIC', id})
 

@@ -5,15 +5,15 @@ const initialState = {
   entries: {}
 }
 
-const FETCH_CHARACTERS_BY_COMIC_ID = 'characters/FETCH_BY_COMIC_ID'
+const FETCH_CHARACTERS_BY_IDS = 'characters/FETCH_BY_IDS'
 const FETCH_CHARACTERS_SUCCESS = 'characters/FETCH_SUCCESS'
 const FETCH_CHARACTERS_ERROR = 'characters/FETCH_ERROR'
 
-export const fetchCharactersByComidId = (id) => ({type: FETCH_CHARACTERS_BY_COMIC_ID, id})
+export const fetchCharactersByIds = (ids) => ({type: FETCH_CHARACTERS_BY_IDS, ids})
 
 export default function charactersReducer (state = initialState, action) {
   switch(action.type) {
-    case FETCH_CHARACTERS_BY_COMIC_ID:
+    case FETCH_CHARACTERS_BY_IDS:
       return {
         ...state,
         isLoading: true

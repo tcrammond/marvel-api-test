@@ -4,6 +4,9 @@ import _ from 'lodash'
 
 import './CharacterSelector.css'
 
+/**
+ * Allows user to select which character they wish to view more information on.
+ */
 export default class CharacterSelector extends PureComponent {
   static propTypes = {
     characters: PropTypes.object.isRequired,
@@ -22,9 +25,14 @@ export default class CharacterSelector extends PureComponent {
   }
 
   render () {
+    const isEmpty = !_.size(this.props.characters)
+
     return (
       <div className='CharacterSelector__container'>
-        {_.map(this.props.characters, this.renderCharacter)}
+        {isEmpty
+          ? <div>None listed.</div>
+          : _.map(this.props.characters, this.renderCharacter)
+        }
       </div>
     )
   }

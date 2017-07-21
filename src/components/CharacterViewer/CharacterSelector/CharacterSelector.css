@@ -1,9 +1,10 @@
 .CharacterSelector__container {
+  flex-shrink: 0;
   height: 300px;
   width: 150px;
   overflow-y: scroll;
 
-  border: 1px solid black;
+  border-right: 1px solid black;
 }
 
 .CharacterSelector__item, .CharacterSelector__item--selected {

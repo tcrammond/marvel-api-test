@@ -1,3 +1,8 @@
 .CharacterViewer__container {
+  width: 100%;
+}
 
+.CharacterViewer__content {
+  display: flex;
+  outline: 1px solid black;
 }

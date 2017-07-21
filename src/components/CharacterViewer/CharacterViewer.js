@@ -16,6 +16,9 @@ import {
 
 /**
  * Displays a scrollable list of characters from a comic alongside the profile of a selected character.
+ * User can choose which character to view information about.
+ *
+ * CharacterViewer fetches characters when they are not already present in the store.
  */
 export class CharacterViewer extends PureComponent {
   static propTypes = {
@@ -60,13 +63,13 @@ export class CharacterViewer extends PureComponent {
 
     return (
       <div className='CharacterViewer__container'>
-        <h3 className='CharacterViewer__header'>Characters</h3>
+        <h3 className='CharacterViewer__header'>Characters in this comic</h3>
 
         {this.props.isLoading
           ? <div>Loading...</div>
-          : <div>
+          : <div className='CharacterViewer__content'>
               <CharacterSelector characters={characters} selectedCharacterId={selectedCharacterId} onSelectCharacter={this.selectCharacter} />
-              <CharacterProfile character={selectedCharacter}/>
+              <CharacterProfile character={selectedCharacter} />
             </div>
         }
       </div>

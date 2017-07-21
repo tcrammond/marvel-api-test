@@ -1,0 +1,23 @@
+.CharacterProfile__container {
+  display: flex;
+}
+
+.CharacterProfile__photo {
+  flex-shrink: 0;
+  width: 300px;
+  padding: 0 25px;
+  box-sizing: content-box;
+}
+
+.CharacterProfile__photo img {
+  max-width: 100%;
+}
+
+.CharacterProfile__details {
+  padding-bottom: 20px;
+}
+
+.CharacterProfile__links a {
+  color: red;
+  margin-right: 15px;
+}

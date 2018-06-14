@@ -14,6 +14,8 @@ Run `yarn` or `npm install` to install dependencies.
 
 ### Configuration
 
+You need to get an API key for the Marvel comics API.
+
 Add an `.env.local` file in the **root** of the project, as follows:
 
 ```
